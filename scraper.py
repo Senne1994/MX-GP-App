@@ -33,53 +33,59 @@ def scrape_calendar():
         response = requests.get(url, headers=headers)
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # Zoek de tabel (we laten 'tbody' weg voor maximale compatibiliteit)
-        table = soup.find("table", class_="cal") or soup.find("table")
-        if not table: return []
+        # Zoek de specifieke tabel die je stuurde
+        table = soup.find("table", class_="cal")
+        if not table:
+            print("Geen tabel met class 'cal' gevonden")
+            return []
 
         rows = table.find_all("tr")
         for row in rows:
             cols = row.find_all("td")
             if len(cols) >= 3:
+                # Kolom 0: Ronde nummer
                 round_nr = cols[0].get_text(strip=True)
                 if not round_nr.isdigit(): continue 
 
+                # Kolom 1: GP Naam en Locatie (op basis van jouw HTML)
                 gp_cell = cols[1]
-                gp_name = gp_cell.find("a").get_text(strip=True) if gp_cell.find("a") else gp_cell.get_text(strip=True)
-                location = gp_cell.find("span").get_text(strip=True) if gp_cell.find("span") else ""
+                # Zoek de naam in de span met itemprop="name"
+                name_span = gp_cell.find("span", itemprop="name")
+                gp_name = name_span.get_text(strip=True) if name_span else "Onbekend"
                 
+                # Zoek locatie in de small tag
+                loc_tag = gp_cell.find("small", itemprop="location")
+                location = loc_tag.find("span", itemprop="name").get_text(strip=True) if loc_tag else ""
+                
+                # Kolom 2: Datum
                 date_cell = cols[2]
                 time_tag = date_cell.find("time")
-                machine_date = time_tag['datetime'] if time_tag and time_tag.has_attr('datetime') else ""
-                display_date = date_cell.get_text(" ", strip=True)
+                display_date = time_tag.get_text(strip=True) if time_tag else date_cell.get_text(strip=True)
 
                 events.append({
                     "round": round_nr,
                     "gp": gp_name,
                     "loc": location,
-                    "date": display_date,
-                    "date_raw": machine_date
+                    "date": display_date
                 })
-        print(f"Kalender: {len(events)} races gevonden.")
+        print(f"Kalender succesvol: {len(events)} races gevonden.")
         return events
     except Exception as e:
-        print(f"Kalender fout: {e}")
+        print(f"Fout bij kalender: {e}")
         return []
 
 def main():
-    # Haal alles op
     mxgp = scrape_standings("https://mxgpresults.com/mxgp/standings")
     mx2 = scrape_standings("https://mxgpresults.com/mx2/standings")
     calendar = scrape_calendar()
 
-    # Opslaan in bestanden
     with open('standings.json', 'w') as f:
         json.dump({"mxgp": mxgp, "mx2": mx2}, f, indent=4)
     
     with open('calendar.json', 'w') as f:
         json.dump(calendar, f, indent=4)
     
-    print("Files succesvol weggeschreven!")
+    print("Files bijgewerkt op GitHub!")
 
 if __name__ == "__main__":
     main()
