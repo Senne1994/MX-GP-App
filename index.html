@@ -7,17 +7,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .nav-active { color: #ea580c; border-top: 3px solid #ea580c; }
-        body { -webkit-tap-highlight-color: transparent; }
+        body { -webkit-tap-highlight-color: transparent; padding-bottom: 70px; }
     </style>
 </head>
-<body class="bg-gray-100 font-sans pb-20">
+<body class="bg-gray-100 font-sans">
 
     <div id="page-standings">
         <header class="bg-black text-white p-4 sticky top-0 z-50 shadow-xl border-b-2 border-orange-600 text-center">
-            <h1 id="main-title" class="text-lg font-black italic mb-4 uppercase tracking-tighter text-orange-600">LADEN...</h1>
+            <h1 id="main-title" class="text-lg font-black italic mb-4 uppercase text-orange-600 tracking-tighter text-center w-full">LADEN...</h1>
             <div class="flex justify-center space-x-2">
-                <button onclick="switchClass('mxgp')" id="btn-mxgp" class="px-6 py-2 rounded-full font-black text-xs transition-all bg-orange-600 text-white shadow-lg">MXGP</button>
-                <button onclick="switchClass('mx2')" id="btn-mx2" class="px-6 py-2 rounded-full font-black text-xs transition-all bg-gray-800 text-gray-400">MX2</button>
+                <button onclick="switchClass('mxgp')" id="btn-mxgp" class="px-6 py-2 rounded-full font-black text-xs transition-all bg-orange-600 text-white shadow-lg border-0 cursor-pointer">MXGP</button>
+                <button onclick="switchClass('mx2')" id="btn-mx2" class="px-6 py-2 rounded-full font-black text-xs transition-all bg-gray-800 text-gray-400 border-0 cursor-pointer">MX2</button>
             </div>
         </header>
         <div id="standings-list" class="max-w-md mx-auto p-4 space-y-3"></div>
@@ -31,10 +31,10 @@
     </div>
 
     <nav class="fixed bottom-0 left-0 right-0 bg-black text-white flex justify-around items-center z-50 h-16 shadow-2xl border-t border-gray-900">
-        <button onclick="showPage('standings')" id="nav-standings" class="flex-1 flex flex-col items-center justify-center h-full nav-active transition-all">
+        <button onclick="showPage('standings')" id="nav-standings" class="flex-1 flex flex-col items-center justify-center h-full nav-active transition-all border-0 bg-transparent cursor-pointer">
             <span class="text-[10px] font-black uppercase tracking-widest">Standings</span>
         </button>
-        <button onclick="showPage('calendar')" id="nav-calendar" class="flex-1 flex flex-col items-center justify-center h-full text-gray-500 transition-all">
+        <button onclick="showPage('calendar')" id="nav-calendar" class="flex-1 flex flex-col items-center justify-center h-full text-gray-500 transition-all border-0 bg-transparent cursor-pointer">
             <span class="text-[10px] font-black uppercase tracking-widest">Kalender</span>
         </button>
     </nav>
@@ -51,29 +51,18 @@
                 ]);
                 allStandings = await sRes.json();
                 allCalendar = await cRes.json();
-                
                 switchClass('mxgp');
                 renderCalendar();
-            } catch (e) { console.error("Data error", e); }
+            } catch (e) { console.error(e); }
         }
 
         function showPage(page) {
-            const pStandings = document.getElementById('page-standings');
-            const pCalendar = document.getElementById('page-calendar');
-            const nStandings = document.getElementById('nav-standings');
-            const nCalendar = document.getElementById('nav-calendar');
-
-            if(page === 'standings') {
-                pStandings.classList.remove('hidden');
-                pCalendar.classList.add('hidden');
-                nStandings.classList.add('nav-active');
-                nCalendar.classList.remove('nav-active');
-            } else {
-                pStandings.classList.add('hidden');
-                pCalendar.classList.remove('hidden');
-                nStandings.classList.remove('nav-active');
-                nCalendar.classList.add('nav-active');
-            }
+            document.getElementById('page-standings').classList.toggle('hidden', page !== 'standings');
+            document.getElementById('page-calendar').classList.toggle('hidden', page !== 'calendar');
+            document.getElementById('nav-standings').classList.toggle('nav-active', page === 'standings');
+            document.getElementById('nav-standings').classList.toggle('text-gray-500', page !== 'standings');
+            document.getElementById('nav-calendar').classList.toggle('nav-active', page === 'calendar');
+            document.getElementById('nav-calendar').classList.toggle('text-gray-500', page !== 'calendar');
             window.scrollTo(0,0);
         }
 
@@ -108,13 +97,10 @@
                         <span class="text-xs font-bold text-gray-400 uppercase tracking-tighter">${event.date}</span>
                     </div>
                     <h2 class="text-lg font-black text-gray-900 italic leading-tight uppercase">${event.gp}</h2>
-                    <p class="text-sm text-gray-500 font-bold flex items-center">
-                        <span class="mr-1">📍</span> ${event.loc}
-                    </p>
+                    <p class="text-sm text-gray-500 font-bold">📍 ${event.loc}</p>
                 </div>`;
             });
         }
-
         init();
     </script>
 </body>
