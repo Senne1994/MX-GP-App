@@ -3,73 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MX Standings</title>
+    <title>MX Pro App</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .nav-active { color: #ea580c; border-top: 3px solid #ea580c; }
+        body { -webkit-tap-highlight-color: transparent; }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans antialiased">
-    <header class="bg-black text-white p-4 sticky top-0 z-50 shadow-xl border-b-2 border-orange-600">
-        <h1 id="main-title" class="text-lg font-black italic tracking-tighter text-center mb-4 uppercase">LADEN...</h1>
-        <div class="flex justify-center space-x-2">
-            <button onclick="switchClass('mxgp')" id="btn-mxgp" class="px-6 py-2 rounded-full font-black text-sm transition-all bg-orange-600 text-white border-0 cursor-pointer">MXGP</button>
-            <button onclick="switchClass('mx2')" id="btn-mx2" class="px-6 py-2 rounded-full font-black text-sm transition-all bg-gray-800 text-gray-400 border-0 cursor-pointer">MX2</button>
-        </div>
-    </header>
+<body class="bg-gray-100 font-sans pb-20">
 
-    <div id="app" class="max-w-md mx-auto p-4 space-y-3">
-        <p class="text-center py-10 text-gray-400 italic font-bold">Data aan het verwerken...</p>
+    <div id="page-standings">
+        <header class="bg-black text-white p-4 sticky top-0 z-50 shadow-xl border-b-2 border-orange-600 text-center">
+            <h1 id="main-title" class="text-lg font-black italic mb-4 uppercase tracking-tighter text-orange-600">LADEN...</h1>
+            <div class="flex justify-center space-x-2">
+                <button onclick="switchClass('mxgp')" id="btn-mxgp" class="px-6 py-2 rounded-full font-black text-xs transition-all bg-orange-600 text-white shadow-lg">MXGP</button>
+                <button onclick="switchClass('mx2')" id="btn-mx2" class="px-6 py-2 rounded-full font-black text-xs transition-all bg-gray-800 text-gray-400">MX2</button>
+            </div>
+        </header>
+        <div id="standings-list" class="max-w-md mx-auto p-4 space-y-3"></div>
     </div>
 
+    <div id="page-calendar" class="hidden">
+        <header class="bg-black text-white p-6 sticky top-0 z-50 shadow-xl border-b-2 border-orange-600 text-center">
+            <h1 class="text-xl font-black italic uppercase tracking-tighter text-orange-600">MXGP Kalender 2026</h1>
+        </header>
+        <div id="calendar-list" class="max-w-md mx-auto p-4 space-y-3"></div>
+    </div>
+
+    <nav class="fixed bottom-0 left-0 right-0 bg-black text-white flex justify-around items-center z-50 h-16 shadow-2xl border-t border-gray-900">
+        <button onclick="showPage('standings')" id="nav-standings" class="flex-1 flex flex-col items-center justify-center h-full nav-active transition-all">
+            <span class="text-[10px] font-black uppercase tracking-widest">Standings</span>
+        </button>
+        <button onclick="showPage('calendar')" id="nav-calendar" class="flex-1 flex flex-col items-center justify-center h-full text-gray-500 transition-all">
+            <span class="text-[10px] font-black uppercase tracking-widest">Kalender</span>
+        </button>
+    </nav>
+
     <script>
-        let allData = {};
+        let allStandings = {};
+        let allCalendar = [];
 
         async function init() {
             try {
-                // De ?t= voorkomt dat de browser een oude versie uit het geheugen pakt
-                const res = await fetch('standings.json?t=' + Date.now());
-                allData = await res.json();
-                switchClass('mxgp'); // Start standaard op MXGP
-            } catch (e) { 
-                console.error(e);
-                document.getElementById('app').innerHTML = "<p class='text-center text-red-500 font-bold'>Fout bij laden van data. Check of de scraper is gedraaid.</p>"; 
+                const [sRes, cRes] = await Promise.all([
+                    fetch('standings.json?t=' + Date.now()),
+                    fetch('calendar.json?t=' + Date.now())
+                ]);
+                allStandings = await sRes.json();
+                allCalendar = await cRes.json();
+                
+                switchClass('mxgp');
+                renderCalendar();
+            } catch (e) { console.error("Data error", e); }
+        }
+
+        function showPage(page) {
+            const pStandings = document.getElementById('page-standings');
+            const pCalendar = document.getElementById('page-calendar');
+            const nStandings = document.getElementById('nav-standings');
+            const nCalendar = document.getElementById('nav-calendar');
+
+            if(page === 'standings') {
+                pStandings.classList.remove('hidden');
+                pCalendar.classList.add('hidden');
+                nStandings.classList.add('nav-active');
+                nCalendar.classList.remove('nav-active');
+            } else {
+                pStandings.classList.add('hidden');
+                pCalendar.classList.remove('hidden');
+                nStandings.classList.remove('nav-active');
+                nCalendar.classList.add('nav-active');
             }
+            window.scrollTo(0,0);
         }
 
         function switchClass(className) {
-            const app = document.getElementById('app');
-            const category = allData[className];
+            const list = document.getElementById('standings-list');
+            const data = allStandings[className];
+            document.getElementById('main-title').innerText = data.title;
+            list.innerHTML = '';
             
-            if (!category) return;
+            document.getElementById('btn-mxgp').className = className === 'mxgp' ? 'px-6 py-2 rounded-full font-black text-xs bg-orange-600 text-white shadow-lg' : 'px-6 py-2 rounded-full font-black text-xs bg-gray-800 text-gray-400';
+            document.getElementById('btn-mx2').className = className === 'mx2' ? 'px-6 py-2 rounded-full font-black text-xs bg-orange-600 text-white shadow-lg' : 'px-6 py-2 rounded-full font-black text-xs bg-gray-800 text-gray-400';
 
-            const riders = category.riders;
-            
-            // Zet de titel die we uit de <section id="standings"> hebben geplukt
-            document.getElementById('main-title').innerText = category.title;
-
-            app.innerHTML = '';
-            
-            // Knoppen visueel aanpassen
-            document.getElementById('btn-mxgp').className = className === 'mxgp' ? 'px-6 py-2 rounded-full font-black text-sm bg-orange-600 text-white' : 'px-6 py-2 rounded-full font-black text-sm bg-gray-800 text-gray-400';
-            document.getElementById('btn-mx2').className = className === 'mx2' ? 'px-6 py-2 rounded-full font-black text-sm bg-orange-600 text-white' : 'px-6 py-2 rounded-full font-black text-sm bg-gray-800 text-gray-400';
-
-            riders.forEach(r => {
-                app.innerHTML += `
-                    <div class="flex items-center bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
-                        <span class="text-xl font-bold w-10 text-gray-300">${r.pos}</span>
-                        <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-black mr-4 shadow-inner text-lg">
-                            ${r.number}
-                        </div>
-                        <div class="flex-grow">
-                            <h2 class="font-extrabold text-gray-900 leading-tight">${r.name}</h2>
-                            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">${r.bike}</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-2xl font-black text-black">${r.points}</span>
-                            <p class="text-[10px] text-orange-600 font-bold">PTS</p>
-                        </div>
-                    </div>`;
+            data.riders.forEach(r => {
+                list.innerHTML += `
+                <div class="flex items-center bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+                    <span class="text-xl font-bold w-10 text-gray-200">${r.pos}</span>
+                    <div class="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center text-orange-600 font-black mr-4 border border-orange-100">${r.number}</div>
+                    <div class="flex-grow"><h2 class="font-extrabold text-gray-900 leading-tight">${r.name}</h2><p class="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">${r.bike}</p></div>
+                    <div class="text-right"><span class="text-2xl font-black text-black">${r.points}</span><p class="text-[10px] text-orange-600 font-black">PTS</p></div>
+                </div>`;
             });
-            window.scrollTo(0, 0);
         }
+
+        function renderCalendar() {
+            const list = document.getElementById('calendar-list');
+            list.innerHTML = '';
+            allCalendar.forEach(event => {
+                list.innerHTML += `
+                <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-orange-600">
+                    <div class="flex justify-between items-start mb-1">
+                        <span class="text-[10px] font-black bg-orange-100 text-orange-600 px-2 py-1 rounded">RD ${event.round}</span>
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-tighter">${event.date}</span>
+                    </div>
+                    <h2 class="text-lg font-black text-gray-900 italic leading-tight uppercase">${event.gp}</h2>
+                    <p class="text-sm text-gray-500 font-bold flex items-center">
+                        <span class="mr-1">📍</span> ${event.loc}
+                    </p>
+                </div>`;
+            });
+        }
+
         init();
     </script>
 </body>
