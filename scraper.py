@@ -9,49 +9,54 @@ def scrape_class(url):
         soup = BeautifulSoup(response.text, 'html.parser')
         standings = []
         
-        # We zoeken de tabel en dan alle rijen
+        # Zoek alle rijen in de tabel
         rows = soup.find_all("tr")
         
-        pos_counter = 1
         for row in rows:
             cols = row.find_all("td")
-            # Een geldige rij heeft meestal minstens 5 kolommen
-            if len(cols) >= 5:
-                name_el = row.select_one("a[href*='/riders/']")
-                # We checken of er een naam in de rij staat
-                if name_el:
-                    name = name_el.get_text(strip=True)
-                    # Rugnummer is vaak de tweede kolom (index 1)
+            
+            # De tabel heeft minimaal 6 kolommen: Pos, Nr, Naam, Merk, Land, Ptn
+            if len(cols) >= 6:
+                pos_text = cols[0].get_text(strip=True)
+                
+                # Check of de eerste kolom een getal is (negeert de header 'Pos')
+                if pos_text.isdigit():
+                    # We halen de tekst op uit de kolommen, ongeacht of er een <a> link in staat
                     number = cols[1].get_text(strip=True).replace('#', '')
-                    # Merk is vaak de vierde kolom (index 3)
+                    name = cols[2].get_text(strip=True)
                     bike = cols[3].get_text(strip=True)
-                    # Punten is de laatste kolom
                     points = cols[-1].get_text(strip=True)
                     
-                    # Alleen toevoegen als er echt punten of een naam zijn
-                    if name and points:
-                        standings.append({
-                            "pos": pos_counter,
-                            "number": number if number else "?",
-                            "name": name,
-                            "bike": bike if bike else "Onbekend",
-                            "points": points
-                        })
-                        pos_counter += 1
+                    standings.append({
+                        "pos": int(pos_text),
+                        "number": number,
+                        "name": name,
+                        "bike": bike,
+                        "points": points
+                    })
+        
+        # Sorteer op positie van laag naar hoog
+        standings.sort(key=lambda x: x["pos"])
         return standings
+
     except Exception as e:
-        print(f"Fout bij {url}: {e}")
+        print(f"Fout bij scrapen van {url}: {e}")
         return []
 
 def main():
+    # Haal beide klassen op met de nieuwe logica
+    mxgp_data = scrape_class("https://mxgpresults.com/mxgp/standings")
+    mx2_data = scrape_class("https://mxgpresults.com/mx2/standings")
+    
     data = {
-        "mxgp": scrape_class("https://mxgpresults.com/mxgp/standings"),
-        "mx2": scrape_class("https://mxgpresults.com/mx2/standings")
+        "mxgp": mxgp_data,
+        "mx2": mx2_data
     }
     
     with open('standings.json', 'w') as f:
         json.dump(data, f, indent=4)
-    print(f"Klaar! MXGP: {len(data['mxgp'])} rijders, MX2: {len(data['mx2'])} rijders.")
+    
+    print(f"Succes! MXGP: {len(mxgp_data)} rijders, MX2: {len(mx2_data)} rijders.")
 
 if __name__ == "__main__":
     main()
