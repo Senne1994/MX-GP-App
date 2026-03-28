@@ -8,32 +8,35 @@ def scrape_class(url):
         response = requests.get(url, headers=headers)
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # We zoeken alle <h2> elementen en pakken de eerste die NIET 'advertisement' bevat
-        title = "MX Standings"
-        all_h2s = soup.find_all("h2")
-        for h2 in all_h2s:
-            text = h2.get_text(strip=True)
-            if "advertisement" not in text.lower() and text != "":
-                title = text
-                break # Stop zodra we de echte titel hebben
+        # JOUW LOGICA: We zoeken specifiek de sectie 'standings'
+        section = soup.find("section", id="standings")
         
-        standings = []
-        rows = soup.find_all("tr")
-        for row in rows:
-            cols = row.find_all("td")
-            if len(cols) >= 6:
-                pos_text = cols[0].get_text(strip=True)
-                if pos_text.isdigit():
-                    standings.append({
-                        "pos": int(pos_text),
-                        "number": cols[1].get_text(strip=True).replace('#', ''),
-                        "name": cols[2].get_text(strip=True),
-                        "bike": cols[3].get_text(strip=True),
-                        "points": cols[-1].get_text(strip=True)
-                    })
+        if section:
+            # We zoeken de titel BINNEN de sectie
+            title_el = section.find("h2")
+            title = title_el.get_text(strip=True) if title_el else "MX Standings"
+            
+            standings = []
+            # We zoeken de rijen BINNEN de sectie
+            rows = section.find_all("tr")
+            
+            for row in rows:
+                cols = row.find_all("td")
+                if len(cols) >= 6:
+                    pos_text = cols[0].get_text(strip=True)
+                    if pos_text.isdigit():
+                        standings.append({
+                            "pos": int(pos_text),
+                            "number": cols[1].get_text(strip=True).replace('#', ''),
+                            "name": cols[2].get_text(strip=True),
+                            "bike": cols[3].get_text(strip=True),
+                            "points": cols[-1].get_text(strip=True)
+                        })
+            
+            standings.sort(key=lambda x: x["pos"])
+            return {"title": title, "riders": standings}
         
-        standings.sort(key=lambda x: x["pos"])
-        return {"title": title, "riders": standings}
+        return {"title": "Niet gevonden", "riders": []}
 
     except Exception as e:
         print(f"Fout bij {url}: {e}")
@@ -43,14 +46,13 @@ def main():
     mxgp_data = scrape_class("https://mxgpresults.com/mxgp/standings")
     mx2_data = scrape_class("https://mxgpresults.com/mx2/standings")
     
-    data = {
-        "mxgp": mxgp_data,
-        "mx2": mx2_data
-    }
+    data = {"mxgp": mxgp_data, "mx2": mx2_data}
     
     with open('standings.json', 'w') as f:
         json.dump(data, f, indent=4)
-    print(f"Data bijgewerkt! Titels gevonden: {mxgp_data['title']} & {mx2_data['title']}")
+    
+    print(f"DEBUG - MXGP Titel: {mxgp_data['title']}")
+    print(f"DEBUG - MX2 Titel: {mx2_data['title']}")
 
 if __name__ == "__main__":
     main()
