@@ -5,7 +5,7 @@ from datetime import datetime
 
 def scrape_wikipedia_data(year):
     url = f"https://en.wikipedia.org/wiki/{year}_FIM_Motocross_World_Championship"
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
     
     data = {
         "year": year,
@@ -19,7 +19,7 @@ def scrape_wikipedia_data(year):
         if response.status_code != 200: return None
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        # 1. KALENDER
+        # 1. CALENDAR
         cal_table = soup.find("table", class_="wikitable")
         if cal_table:
             for row in cal_table.find_all("tr")[1:]:
@@ -34,43 +34,47 @@ def scrape_wikipedia_data(year):
                             "loc": cols[3].get_text(strip=True)
                         })
 
-        # 2. STANDEN
+        # 2. STANDINGS
         tables = soup.find_all("table", class_="wikitable")
         standings_found = 0
         for table in tables:
-            header_text = table.get_text().lower()
-            if "pos" in header_text and "rider" in header_text and "points" in header_text:
+            headers_row = [th.get_text(strip=True).lower() for th in table.find_all("th")]
+            
+            if "pos" in headers_row and "rider" in headers_row and "points" in headers_row:
                 category = "mxgp" if standings_found == 0 else "mx2"
                 rows = table.find_all("tr")[1:]
+                
                 for row in rows:
-                    cols = row.find_all("td")
+                    cols = row.find_all(["td", "th"])
                     if len(cols) >= 4:
-                        pos = cols[0].get_text(strip=True)
-                        if pos.isdigit():
+                        pos_text = cols[0].get_text(strip=True)
+                        # Filter out rows that aren't riders (like totals or notes)
+                        if pos_text.isdigit():
                             data[category]["riders"].append({
-                                "pos": int(pos),
+                                "pos": pos_text,
                                 "name": cols[1].get_text(strip=True),
                                 "bike": cols[2].get_text(strip=True),
+                                "number": "", # Wikipedia lacks this in summary tables
                                 "points": cols[-1].get_text(strip=True)
                             })
                 standings_found += 1
                 if standings_found == 2: break
         return data
-    except: return None
+    except Exception as e:
+        print(f"Error for year {year}: {e}")
+        return None
 
 def main():
     current_year = datetime.now().year
-    jaren = list(range(current_year - 4, current_year + 1))
+    years = list(range(current_year - 4, current_year + 1))
     available = []
-
-    for jaar in jaren:
-        print(f"Scraping {jaar}...")
-        jaar_data = scrape_wikipedia_data(jaar)
-        if jaar_data:
-            with open(f"data_{jaar}.json", 'w', encoding='utf-8') as f:
-                json.dump(jaar_data, f, indent=4, ensure_ascii=False)
-            available.append(jaar)
-
+    for yr in years:
+        print(f"Scraping {yr}...")
+        d = scrape_wikipedia_data(yr)
+        if d:
+            with open(f"data_{yr}.json", 'w', encoding='utf-8') as f:
+                json.dump(d, f, indent=4, ensure_ascii=False)
+            available.append(yr)
     with open('years_index.json', 'w') as f:
         json.dump({"available_years": sorted(available, reverse=True)}, f)
 
