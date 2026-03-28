@@ -138,5 +138,26 @@
         "name": "Jeremy Seewer",
         "bike": "Ducati",
         "points": "15"
+    },
+    {
+        "pos": 21,
+        "number": "253",
+        "name": "Jan Pancar",
+        "bike": "KTM",
+        "points": "13"
+    },
+    {
+        "pos": 23,
+        "number": "173",
+        "name": "Jose Butron",
+        "bike": "KTM",
+        "points": "5"
+    },
+    {
+        "pos": 26,
+        "number": "811",
+        "name": "Adam Sterry",
+        "bike": "KTM",
+        "points": "2"
     }
 ]
