@@ -1,0 +1,1497 @@
+{
+    "year": 2024,
+    "calendar": [
+        {
+            "round": "1",
+            "date": "10 March",
+            "gp": "MXGP of Argentina",
+            "loc": "Villa La Angostura"
+        },
+        {
+            "round": "2",
+            "date": "24 March",
+            "gp": "MXGP of Spain",
+            "loc": "intu Xanadú"
+        },
+        {
+            "round": "3",
+            "date": "7 April",
+            "gp": "MXGP of Sardegna",
+            "loc": "Riola Sardo"
+        },
+        {
+            "round": "4",
+            "date": "14 April",
+            "gp": "MXGP of Trentino",
+            "loc": "Pietramurata"
+        },
+        {
+            "round": "5",
+            "date": "5 May",
+            "gp": "MXGP of Portugal",
+            "loc": "Águeda"
+        },
+        {
+            "round": "6",
+            "date": "12 May",
+            "gp": "MXGP of Galicia",
+            "loc": "Lugo"
+        },
+        {
+            "round": "7",
+            "date": "19 May",
+            "gp": "MXGP of France",
+            "loc": "Saint-Jean-d'Angély"
+        },
+        {
+            "round": "8",
+            "date": "2 June",
+            "gp": "MXGP of Germany",
+            "loc": "Teutschenthal"
+        },
+        {
+            "round": "9",
+            "date": "9 June",
+            "gp": "MXGP of Latvia",
+            "loc": "Ķegums"
+        },
+        {
+            "round": "10",
+            "date": "16 June",
+            "gp": "MXGP of Italy",
+            "loc": "Maggiora"
+        },
+        {
+            "round": "11",
+            "date": "30 June",
+            "gp": "MXGP of Indonesia",
+            "loc": "Lombok"
+        },
+        {
+            "round": "12",
+            "date": "7 July",
+            "gp": "MXGP of Indonesia",
+            "loc": "Jeffrey Herlings"
+        },
+        {
+            "round": "13",
+            "date": "21 July",
+            "gp": "MXGP of Czech Republic",
+            "loc": "Loket"
+        },
+        {
+            "round": "14",
+            "date": "28 July",
+            "gp": "MXGP of Flanders",
+            "loc": "Lommel"
+        },
+        {
+            "round": "15",
+            "date": "11 August",
+            "gp": "MXGP of Sweden",
+            "loc": "Uddevalla"
+        },
+        {
+            "round": "16",
+            "date": "18 August",
+            "gp": "MXGP of The Netherlands",
+            "loc": "Arnhem"
+        },
+        {
+            "round": "17",
+            "date": "25 August",
+            "gp": "MXGP of Switzerland",
+            "loc": "Frauenfeld"
+        },
+        {
+            "round": "18",
+            "date": "8 September",
+            "gp": "MXGP of Turkey",
+            "loc": "Afyonkarahisar"
+        },
+        {
+            "round": "19",
+            "date": "16 September",
+            "gp": "MXGP of China",
+            "loc": "Shanghai"
+        },
+        {
+            "round": "20",
+            "date": "29 September",
+            "gp": "MXGP of Castilla–La Mancha",
+            "loc": "Cózar"
+        }
+    ],
+    "mxgp": {
+        "title": "MXGP Standings 2024",
+        "riders": [
+            {
+                "pos": 1,
+                "name": "Jorge Prado",
+                "bike": "Gas Gas",
+                "points": "4"
+            },
+            {
+                "pos": 243,
+                "name": "Tim Gajser",
+                "bike": "Honda",
+                "points": "3"
+            },
+            {
+                "pos": 84,
+                "name": "Jeffrey Herlings",
+                "bike": "KTM",
+                "points": "1"
+            },
+            {
+                "pos": 91,
+                "name": "Jeremy Seewer",
+                "bike": "Kawasaki",
+                "points": "5"
+            },
+            {
+                "pos": 3,
+                "name": "Romain Febvre",
+                "bike": "Kawasaki",
+                "points": "2"
+            },
+            {
+                "pos": 259,
+                "name": "Glenn Coldenhoff",
+                "bike": "Fantic",
+                "points": "7"
+            },
+            {
+                "pos": 10,
+                "name": "Calvin Vlaanderen",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 24,
+                "name": "Kevin Horgmo",
+                "bike": "Honda",
+                "points": "DNS"
+            },
+            {
+                "pos": 92,
+                "name": "Valentin Guillod",
+                "bike": "Honda",
+                "points": "6"
+            },
+            {
+                "pos": 132,
+                "name": "Andrea Bonacorsi",
+                "bike": "Yamaha",
+                "points": "14"
+            },
+            {
+                "pos": 189,
+                "name": "Brian Bogers",
+                "bike": "Fantic",
+                "points": "Ret"
+            },
+            {
+                "pos": 101,
+                "name": "Mattia Guadagnini",
+                "bike": "Husqvarna",
+                "points": "DNS"
+            },
+            {
+                "pos": 253,
+                "name": "Jan Pancar",
+                "bike": "KTM",
+                "points": "10"
+            },
+            {
+                "pos": 41,
+                "name": "Pauls Jonass",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 17,
+                "name": "Cornelius Tøndel",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 6,
+                "name": "Benoît Paturel",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 959,
+                "name": "Maxime Renaux",
+                "bike": "Yamaha",
+                "points": "9"
+            },
+            {
+                "pos": 517,
+                "name": "Isak Gifting",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 303,
+                "name": "Alberto Forato",
+                "bike": "Honda",
+                "points": "12"
+            },
+            {
+                "pos": 226,
+                "name": "Tom Koch",
+                "bike": "KTM",
+                "points": "13"
+            },
+            {
+                "pos": 919,
+                "name": "Ben Watson",
+                "bike": "Beta",
+                "points": ""
+            },
+            {
+                "pos": 161,
+                "name": "Alvin Östlund",
+                "bike": "Honda",
+                "points": "15"
+            },
+            {
+                "pos": 70,
+                "name": "Rubén Fernández",
+                "bike": "Honda",
+                "points": "8"
+            },
+            {
+                "pos": 128,
+                "name": "Ivo Monticelli",
+                "bike": "Beta",
+                "points": "16"
+            },
+            {
+                "pos": 32,
+                "name": "Brent Van Doninck",
+                "bike": "Honda",
+                "points": "11"
+            },
+            {
+                "pos": 71,
+                "name": "Maximilian Spies",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 87,
+                "name": "Kevin Brumann",
+                "bike": "Husqvarna",
+                "points": "17"
+            },
+            {
+                "pos": 326,
+                "name": "Josh Gilbert",
+                "bike": "KTM",
+                "points": "18"
+            },
+            {
+                "pos": 811,
+                "name": "Adam Sterry",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 163,
+                "name": "Yuki Okura",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 426,
+                "name": "Conrad Mewse",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 988,
+                "name": "Lionel Kerhoas",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 93,
+                "name": "Jago Geerts",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 142,
+                "name": "Jere Haavisto",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 223,
+                "name": "Giuseppe Tropepe",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 56,
+                "name": "Kirk Gibbs",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 29,
+                "name": "Henry Jacobi",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 37,
+                "name": "Tim Edberg",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 222,
+                "name": "Antonio Cairoli",
+                "bike": "Ducati",
+                "points": ""
+            },
+            {
+                "pos": 4,
+                "name": "Arnaud Tonus",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 77,
+                "name": "Alessandro Lupino",
+                "bike": "Ducati",
+                "points": "Ret"
+            },
+            {
+                "pos": 7,
+                "name": "Todd Waters",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 45,
+                "name": "Tomáš Kohút",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 213,
+                "name": "Pu Yang",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 991,
+                "name": "Mark Scheu",
+                "bike": "Husqvarna",
+                "points": "19"
+            },
+            {
+                "pos": 692,
+                "name": "Ander Valentín",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 228,
+                "name": "Emilio Scuteri",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 337,
+                "name": "Yuri Quarti",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 52,
+                "name": "Albin Gerhardsson",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 684,
+                "name": "Uldis Freibergs",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 99,
+                "name": "Wang Junkai",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 224,
+                "name": "Jakub Terešák",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 98,
+                "name": "Todd Kellett",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 107,
+                "name": "Lars van Berkel",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 909,
+                "name": "Miguel Cordovez",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 300,
+                "name": "Noah Ludwig",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 200,
+                "name": "Filippo Zonta",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 131,
+                "name": "Cato Nickel",
+                "bike": "Husqvarna",
+                "points": "DNS"
+            },
+            {
+                "pos": 9,
+                "name": "Petar Petrov",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 238,
+                "name": "Fábio Santos",
+                "bike": "Yamaha",
+                "points": "DNS"
+            },
+            {
+                "pos": 771,
+                "name": "Simone Croci",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 637,
+                "name": "Tomass Šileika",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 816,
+                "name": "He Rongzhe",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 878,
+                "name": "Stefano Pezzuto",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 881,
+                "name": "Freek van der Vlist",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 60,
+                "name": "Anton Nagy",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 144,
+                "name": "Nicolás Rolando",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 313,
+                "name": "Petr Polák",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 297,
+                "name": "Anton Gole",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 596,
+                "name": "Andrés Benenaula",
+                "bike": "Kawasaki",
+                "points": ""
+            },
+            {
+                "pos": 365,
+                "name": "Nikolaj Skovgaard",
+                "bike": "KTM",
+                "points": "20"
+            },
+            {
+                "pos": 76,
+                "name": "Sergio Villaronga",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 521,
+                "name": "Boris Blanken",
+                "bike": "Fantic",
+                "points": ""
+            },
+            {
+                "pos": 14,
+                "name": "Tristan Purdon",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 388,
+                "name": "Panagiotis Kouzis",
+                "bike": "TM",
+                "points": ""
+            },
+            {
+                "pos": 311,
+                "name": "Mirko Dal Bosco",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 278,
+                "name": "Thomas Vermijl",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 181,
+                "name": "Domantas Jazdauskas",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 34,
+                "name": "Micha-Boy de Waal",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 494,
+                "name": "Flavio Nicolás Sastre",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 157,
+                "name": "Ata Kuzu",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 121,
+                "name": "Lucas Bodega",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 119,
+                "name": "Nicolas Bender",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 322,
+                "name": "Pavol Repčák",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 579,
+                "name": "Bobby Bruce",
+                "bike": "Kawasaki",
+                "points": ""
+            },
+            {
+                "pos": 533,
+                "name": "Dylan Walsh",
+                "bike": "Kawasaki",
+                "points": ""
+            },
+            {
+                "pos": 113,
+                "name": "Emiliano Castillo",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 830,
+                "name": "Batuhan Demiryol",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 57,
+                "name": "Edvards Bidzāns",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 35,
+                "name": "Lukas Platt",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 104,
+                "name": "Aleksei Vinogradov",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 260,
+                "name": "Nico Koch",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 822,
+                "name": "Mike Bolink",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 474,
+                "name": "Bryan Boulard",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 16,
+                "name": "Tom Grimshaw",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 124,
+                "name": "Lucas Sendón",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 949,
+                "name": "Alessandro Contessi",
+                "bike": "Kawasaki",
+                "points": ""
+            },
+            {
+                "pos": 430,
+                "name": "Christophe Charlier",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 30,
+                "name": "Eddie Hjortmarker",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 403,
+                "name": "Ezequiel Suárez",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 241,
+                "name": "Michel Hoenson",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 499,
+                "name": "Emanuele Alberio",
+                "bike": "Kawasaki",
+                "points": ""
+            },
+            {
+                "pos": 137,
+                "name": "Luca Bruggmann",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 249,
+                "name": "Rudolf Plch",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 380,
+                "name": "Marcel Conijn",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 826,
+                "name": "Nick Leerkes",
+                "bike": "TM",
+                "points": ""
+            },
+            {
+                "pos": 397,
+                "name": "Yuri Pasqualini",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 20,
+                "name": "Victor Kleemann",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 537,
+                "name": "Damian Wedage",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 644,
+                "name": "Ismaele Guarise",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 333,
+                "name": "Luca Borz",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 201,
+                "name": "František Smola",
+                "bike": "TM",
+                "points": ""
+            },
+            {
+                "pos": 454,
+                "name": "Liam Hanström",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 90,
+                "name": "Justin Trache",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 110,
+                "name": "Matías Pavez",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 39,
+                "name": "Roan van de Moosdijk",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 65,
+                "name": "Robin Scheiben",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 179,
+                "name": "Joaquín Poli",
+                "bike": "Kawasaki",
+                "points": ""
+            },
+            {
+                "pos": 247,
+                "name": "Luís Outeiro",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 491,
+                "name": "Paul Haberland",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 62,
+                "name": "Andero Lusbo",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 701,
+                "name": "Marcel Stauffer",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 707,
+                "name": "Víctor Dario Arco",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 399,
+                "name": "Pietro Trinchieri",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 570,
+                "name": "Pierre Goupillon",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 838,
+                "name": "Paolo Ermini",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 336,
+                "name": "Lewis Stewart",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 13,
+                "name": "Loris Freidig",
+                "bike": "Husqvarna",
+                "points": ""
+            }
+        ]
+    },
+    "mx2": {
+        "title": "MX2 Standings 2024",
+        "riders": [
+            {
+                "pos": 74,
+                "name": "Kay de Wolf",
+                "bike": "Husqvarna",
+                "points": "2"
+            },
+            {
+                "pos": 96,
+                "name": "Lucas Coenen",
+                "bike": "Husqvarna",
+                "points": "1"
+            },
+            {
+                "pos": 516,
+                "name": "Simon Längenfelder",
+                "bike": "Gas Gas",
+                "points": "9"
+            },
+            {
+                "pos": 72,
+                "name": "Liam Everts",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 11,
+                "name": "Mikkel Haarup",
+                "bike": "Triumph",
+                "points": "5"
+            },
+            {
+                "pos": 80,
+                "name": "Andrea Adamo",
+                "bike": "KTM",
+                "points": "4"
+            },
+            {
+                "pos": 44,
+                "name": "Rick Elzinga",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 19,
+                "name": "Sacha Coenen",
+                "bike": "KTM",
+                "points": "DNS"
+            },
+            {
+                "pos": 8,
+                "name": "Camden McLellan",
+                "bike": "Triumph",
+                "points": "11"
+            },
+            {
+                "pos": 73,
+                "name": "Ferruccio Zanchi",
+                "bike": "Honda",
+                "points": "6"
+            },
+            {
+                "pos": 198,
+                "name": "Thibault Benistant",
+                "bike": "Yamaha",
+                "points": "3"
+            },
+            {
+                "pos": 51,
+                "name": "Oriol Oliver",
+                "bike": "KTM",
+                "points": "8"
+            },
+            {
+                "pos": 319,
+                "name": "Quentin-Marc Prugnières",
+                "bike": "Kawasaki",
+                "points": "7"
+            },
+            {
+                "pos": 47,
+                "name": "Kārlis Alberts Reišulis",
+                "bike": "Yamaha",
+                "points": "10"
+            },
+            {
+                "pos": 489,
+                "name": "Jens Walvoort",
+                "bike": "KTM",
+                "points": "20"
+            },
+            {
+                "pos": 22,
+                "name": "David Braceras",
+                "bike": "Fantic",
+                "points": "Ret"
+            },
+            {
+                "pos": 12,
+                "name": "Jack Chambers",
+                "bike": "Kawasaki",
+                "points": ""
+            },
+            {
+                "pos": 33,
+                "name": "Kay Karssemakers",
+                "bike": "Fantic",
+                "points": "12"
+            },
+            {
+                "pos": 28,
+                "name": "Marc-Antoine Rossi",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 180,
+                "name": "Leopold Ambjörnsson",
+                "bike": "Husqvarna",
+                "points": "14"
+            },
+            {
+                "pos": 132,
+                "name": "Andrea Bonacorsi",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 451,
+                "name": "Julius Mikula",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 214,
+                "name": "Håkon Østerhagen",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 67,
+                "name": "Yago Martínez",
+                "bike": "TM",
+                "points": ""
+            },
+            {
+                "pos": 172,
+                "name": "Cas Valk",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 53,
+                "name": "Valerio Lata",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 505,
+                "name": "Arvid Lüning",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 123,
+                "name": "Federico Tuani",
+                "bike": "KTM",
+                "points": "16"
+            },
+            {
+                "pos": 338,
+                "name": "Filip Olsson",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 579,
+                "name": "Bobby Bruce",
+                "bike": "Kawasaki",
+                "points": ""
+            },
+            {
+                "pos": 432,
+                "name": "Ivano van Erp",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 484,
+                "name": "Dave Kooiker",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 18,
+                "name": "William Kleemann",
+                "bike": "KTM",
+                "points": "Ret"
+            },
+            {
+                "pos": 125,
+                "name": "Emil Weckman",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 368,
+                "name": "Samuel Nilsson",
+                "bike": "KTM",
+                "points": "13"
+            },
+            {
+                "pos": 427,
+                "name": "Håkon Fredriksen",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 408,
+                "name": "Scott Smulders",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 754,
+                "name": "Jayce Cosford",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 42,
+                "name": "Sampo Rainio",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 437,
+                "name": "Martin Venhoda",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 177,
+                "name": "Jiraj Wannalak",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 139,
+                "name": "Zou Shaohui",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 325,
+                "name": "Delvintor Alfarizi",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 767,
+                "name": "Li Haoyu",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 75,
+                "name": "Bradley Mesters",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 470,
+                "name": "Peter König",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 568,
+                "name": "Max Pålsson",
+                "bike": "KTM",
+                "points": "15"
+            },
+            {
+                "pos": 66,
+                "name": "Fang Xiangliang",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 490,
+                "name": "Jaroslav Katriňák",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 414,
+                "name": "Oscar Brix",
+                "bike": "KTM",
+                "points": "18"
+            },
+            {
+                "pos": 183,
+                "name": "Jaka Peklaj",
+                "bike": "Husqvarna",
+                "points": "17"
+            },
+            {
+                "pos": 27,
+                "name": "Nicolai Skovbjerg",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 40,
+                "name": "Peyman Mohammadalizadeh",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 114,
+                "name": "Nicolas Vennekens",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 529,
+                "name": "Nakami Vidi Makarim",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 48,
+                "name": "Brodie Connolly",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 914,
+                "name": "M. Arsenio Algifari",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 268,
+                "name": "Thibault Maupin",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 302,
+                "name": "Yiğit Ali Selek",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 601,
+                "name": "Kelton Gwyther",
+                "bike": "KTM",
+                "points": "19"
+            },
+            {
+                "pos": 515,
+                "name": "Mads Fredsøe",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 115,
+                "name": "Gavin Towers",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 498,
+                "name": "Maximilian Werner",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 511,
+                "name": "Jan Krug",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 401,
+                "name": "Lotte van Drunen",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 171,
+                "name": "Morgan Bennati",
+                "bike": "Kawasaki",
+                "points": ""
+            },
+            {
+                "pos": 50,
+                "name": "Xavier Cazal",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 227,
+                "name": "Daniel Stehlík",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 109,
+                "name": "Guilherme Bresolin",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 83,
+                "name": "Maxime Grau",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 616,
+                "name": "Ollie Colmer",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 155,
+                "name": "Tom Schröder",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 188,
+                "name": "Erlandas Mackonis",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 79,
+                "name": "Nicola Salvini",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 88,
+                "name": "Italo Medina",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 112,
+                "name": "Pedro Suárez",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 130,
+                "name": "Radim Kraus",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 191,
+                "name": "Juan Ignacio Salgado",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 54,
+                "name": "Tomás Matkovich",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 146,
+                "name": "Alfonso Bratschi",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 49,
+                "name": "Mattia Dusi",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 347,
+                "name": "Juan Abadia",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 938,
+                "name": "Rodolfo Bicalho",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 106,
+                "name": "Juri Vinogradov",
+                "bike": "Triumph",
+                "points": ""
+            },
+            {
+                "pos": 55,
+                "name": "Ignacio Diez",
+                "bike": "Gas Gas",
+                "points": ""
+            },
+            {
+                "pos": 961,
+                "name": "August Frisk",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 15,
+                "name": "Mattia Barbieri",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 262,
+                "name": "Ryan Alexanderson",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 212,
+                "name": "Alfio Pulvirenti",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 389,
+                "name": "Jules Pietre",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 251,
+                "name": "Iñaki Abarzua",
+                "bike": "Suzuki",
+                "points": ""
+            },
+            {
+                "pos": 95,
+                "name": "Enzo Casat",
+                "bike": "Husqvarna",
+                "points": ""
+            },
+            {
+                "pos": 522,
+                "name": "Raffaele Giuzio",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 288,
+                "name": "Ignacio Liprandi",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 431,
+                "name": "Tomáš Pikart",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 141,
+                "name": "Afonso Gomes",
+                "bike": "Yamaha",
+                "points": ""
+            },
+            {
+                "pos": 58,
+                "name": "Mohammad Danesh",
+                "bike": "KTM",
+                "points": ""
+            },
+            {
+                "pos": 221,
+                "name": "Andrés Feicán",
+                "bike": "Honda",
+                "points": ""
+            },
+            {
+                "pos": 31,
+                "name": "Tom Guyon",
+                "bike": "Gas Gas",
+                "points": ""
+            }
+        ]
+    }
+}
