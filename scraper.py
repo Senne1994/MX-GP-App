@@ -8,19 +8,36 @@ def scrape_class(url):
         response = requests.get(url, headers=headers)
         soup = BeautifulSoup(response.text, 'html.parser')
         standings = []
-        rows = soup.select("table tbody tr")
         
-        for index, row in enumerate(rows, start=1):
+        # We zoeken de tabel en dan alle rijen
+        rows = soup.find_all("tr")
+        
+        pos_counter = 1
+        for row in rows:
             cols = row.find_all("td")
-            name_el = row.select_one("a[href*='/riders/']")
-            if name_el and len(cols) > 5:
-                standings.append({
-                    "pos": index,
-                    "number": cols[1].get_text(strip=True).replace('#', ''),
-                    "name": name_el.get_text(strip=True),
-                    "bike": cols[3].get_text(strip=True),
-                    "points": cols[-1].get_text(strip=True)
-                })
+            # Een geldige rij heeft meestal minstens 5 kolommen
+            if len(cols) >= 5:
+                name_el = row.select_one("a[href*='/riders/']")
+                # We checken of er een naam in de rij staat
+                if name_el:
+                    name = name_el.get_text(strip=True)
+                    # Rugnummer is vaak de tweede kolom (index 1)
+                    number = cols[1].get_text(strip=True).replace('#', '')
+                    # Merk is vaak de vierde kolom (index 3)
+                    bike = cols[3].get_text(strip=True)
+                    # Punten is de laatste kolom
+                    points = cols[-1].get_text(strip=True)
+                    
+                    # Alleen toevoegen als er echt punten of een naam zijn
+                    if name and points:
+                        standings.append({
+                            "pos": pos_counter,
+                            "number": number if number else "?",
+                            "name": name,
+                            "bike": bike if bike else "Onbekend",
+                            "points": points
+                        })
+                        pos_counter += 1
         return standings
     except Exception as e:
         print(f"Fout bij {url}: {e}")
@@ -34,7 +51,7 @@ def main():
     
     with open('standings.json', 'w') as f:
         json.dump(data, f, indent=4)
-    print("Beide klassen succesvol bijgewerkt!")
+    print(f"Klaar! MXGP: {len(data['mxgp'])} rijders, MX2: {len(data['mx2'])} rijders.")
 
 if __name__ == "__main__":
     main()
