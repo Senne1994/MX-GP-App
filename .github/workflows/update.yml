@@ -1,26 +1,29 @@
 name: Update Standings
+
 on:
   schedule:
     - cron: '0 */6 * * *'
   workflow_dispatch:
-permissions: # Dit geeft het script extra schrijfrechten
+
+permissions:
   contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4 # Geüpdatet naar v4
-      - uses: actions/setup-python@v5 # Geüpdatet naar v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - name: Install
-        run: pip install -r requirements.txt
+        run: pip install requests beautifulsoup4
       - name: Scrape
         run: python scraper.py
       - name: Push
         run: |
           git config --global user.name "Scraper Bot"
           git config --global user.email "bot@github.com"
-          git add standings.json
-          git commit -m "Update standings" || exit 0
+          git add standings.json calendar.json
+          git commit -m "Update data" || exit 0
           git push
