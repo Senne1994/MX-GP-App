@@ -2,57 +2,77 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
-def scrape_class(url):
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"}
+def scrape_standings(url):
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
     try:
         response = requests.get(url, headers=headers)
         soup = BeautifulSoup(response.text, 'html.parser')
-        
-        # JOUW LOGICA: We zoeken specifiek de sectie 'standings'
         section = soup.find("section", id="standings")
+        if not section: return {"title": "Standings", "riders": []}
         
-        if section:
-            # We zoeken de titel BINNEN de sectie
-            title_el = section.find("h2")
-            title = title_el.get_text(strip=True) if title_el else "MX Standings"
-            
-            standings = []
-            # We zoeken de rijen BINNEN de sectie
-            rows = section.find_all("tr")
-            
-            for row in rows:
-                cols = row.find_all("td")
-                if len(cols) >= 6:
-                    pos_text = cols[0].get_text(strip=True)
-                    if pos_text.isdigit():
-                        standings.append({
-                            "pos": int(pos_text),
-                            "number": cols[1].get_text(strip=True).replace('#', ''),
-                            "name": cols[2].get_text(strip=True),
-                            "bike": cols[3].get_text(strip=True),
-                            "points": cols[-1].get_text(strip=True)
-                        })
-            
-            standings.sort(key=lambda x: x["pos"])
-            return {"title": title, "riders": standings}
-        
-        return {"title": "Niet gevonden", "riders": []}
+        title = section.find("h2").get_text(strip=True) if section.find("h2") else "Standings"
+        riders = []
+        for row in section.find_all("tr"):
+            cols = row.find_all("td")
+            if len(cols) >= 6 and cols[0].get_text(strip=True).isdigit():
+                riders.append({
+                    "pos": int(cols[0].get_text(strip=True)),
+                    "number": cols[1].get_text(strip=True).replace('#', ''),
+                    "name": cols[2].get_text(strip=True),
+                    "bike": cols[3].get_text(strip=True),
+                    "points": cols[-1].get_text(strip=True)
+                })
+        return {"title": title, "riders": riders}
+    except: return {"title": "Error", "riders": []}
 
-    except Exception as e:
-        print(f"Fout bij {url}: {e}")
-        return {"title": "MX Standings", "riders": []}
+def scrape_calendar():
+    url = "https://mxgpresults.com/calendar"
+    headers = {"User-Agent": "Mozilla/5.0"}
+    events = []
+    try:
+        response = requests.get(url, headers=headers)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        # We zoeken de rijen in de tabel met class 'cal' (zoals in je screenshot)
+        rows = soup.select("table.cal tbody tr")
+        for row in rows:
+            cols = row.find_all("td")
+            if len(cols) >= 3:
+                # GP Naam en Locatie (vaak in een span)
+                gp_cell = cols[1]
+                gp_name = gp_cell.find("a").get_text(strip=True) if gp_cell.find("a") else gp_cell.get_text(strip=True)
+                location = gp_cell.find("span").get_text(strip=True) if gp_cell.find("span") else ""
+                
+                # Datum info
+                date_cell = cols[2]
+                time_tag = date_cell.find("time")
+                machine_date = time_tag['datetime'] if time_tag and time_tag.has_attr('datetime') else ""
+                display_date = date_cell.get_text(" ", strip=True)
+
+                events.append({
+                    "round": cols[0].get_text(strip=True),
+                    "gp": gp_name,
+                    "loc": location,
+                    "date": display_date,
+                    "date_raw": machine_date
+                })
+        return events
+    except: return []
 
 def main():
-    mxgp_data = scrape_class("https://mxgpresults.com/mxgp/standings")
-    mx2_data = scrape_class("https://mxgpresults.com/mx2/standings")
-    
-    data = {"mxgp": mxgp_data, "mx2": mx2_data}
-    
+    # 1. Haal Standings op
+    standings_data = {
+        "mxgp": scrape_standings("https://mxgpresults.com/mxgp/standings"),
+        "mx2": scrape_standings("https://mxgpresults.com/mx2/standings")
+    }
     with open('standings.json', 'w') as f:
-        json.dump(data, f, indent=4)
+        json.dump(standings_data, f, indent=4)
+
+    # 2. Haal Kalender op
+    calendar_data = scrape_calendar()
+    with open('calendar.json', 'w') as f:
+        json.dump(calendar_data, f, indent=4)
     
-    print(f"DEBUG - MXGP Titel: {mxgp_data['title']}")
-    print(f"DEBUG - MX2 Titel: {mx2_data['title']}")
+    print(f"Update voltooid! Kalender: {len(calendar_data)} races gevonden.")
 
 if __name__ == "__main__":
     main()
