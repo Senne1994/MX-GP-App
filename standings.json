@@ -148,14 +148,14 @@
             "points": "13"
         },
         {
-            "pos": 23,
+            "pos": 22,
             "number": "173",
             "name": "Jose Butron",
             "bike": "KTM",
             "points": "5"
         },
         {
-            "pos": 26,
+            "pos": 23,
             "number": "811",
             "name": "Adam Sterry",
             "bike": "KTM",
@@ -164,28 +164,28 @@
     ],
     "mx2": [
         {
-            "pos": 2,
+            "pos": 1,
             "number": "1",
             "name": "Simon L\u00e4ngenfelder",
             "bike": "KTM",
             "points": "97"
         },
         {
-            "pos": 4,
+            "pos": 2,
             "number": "19",
             "name": "Sacha Coenen",
             "bike": "KTM",
             "points": "78"
         },
         {
-            "pos": 7,
+            "pos": 3,
             "number": "26",
             "name": "Liam Everts",
             "bike": "Husqvarna",
             "points": "74"
         },
         {
-            "pos": 31,
+            "pos": 4,
             "number": "401",
             "name": "Lotte Van Drunen",
             "bike": "Yamaha",
