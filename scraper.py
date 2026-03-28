@@ -8,9 +8,14 @@ def scrape_class(url):
         response = requests.get(url, headers=headers)
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # Haal de titel op uit de <h2>
-        title_el = soup.find("h2")
-        title = title_el.get_text(strip=True) if title_el else "MX Standings"
+        # We zoeken alle <h2> elementen en pakken de eerste die NIET 'advertisement' bevat
+        title = "MX Standings"
+        all_h2s = soup.find_all("h2")
+        for h2 in all_h2s:
+            text = h2.get_text(strip=True)
+            if "advertisement" not in text.lower() and text != "":
+                title = text
+                break # Stop zodra we de echte titel hebben
         
         standings = []
         rows = soup.find_all("tr")
@@ -45,7 +50,7 @@ def main():
     
     with open('standings.json', 'w') as f:
         json.dump(data, f, indent=4)
-    print("Data en titels bijgewerkt!")
+    print(f"Data bijgewerkt! Titels gevonden: {mxgp_data['title']} & {mx2_data['title']}")
 
 if __name__ == "__main__":
     main()
