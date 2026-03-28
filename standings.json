@@ -1,6 +1,6 @@
 {
     "mxgp": {
-        "title": "MXGP",
+        "title": "MXGP Rider Standings 2026",
         "riders": [
             {
                 "pos": 1,
@@ -187,7 +187,7 @@
         ]
     },
     "mx2": {
-        "title": "MX2",
+        "title": "MX2 Rider Standings 2026",
         "riders": [
             {
                 "pos": 1,
@@ -407,6 +407,5 @@
                 "points": "1"
             }
         ]
-    },
-    "last_updated": "2026-03-28"
+    }
 }
