@@ -3,30 +3,32 @@ from bs4 import BeautifulSoup
 import json
 import sys
 
-def scrape_category(session, url, category_name):
-    """Haalt de standen op voor een specifieke categorie (MXGP/MX2)"""
+def scrape_category(session, url):
+    """Haalt de titel en de standen op van de website"""
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     }
     
     try:
         response = session.get(url, headers=headers, timeout=10)
-        response.raise_for_status() # Stop als de pagina een error geeft (bijv. 404 of 500)
+        response.raise_for_status()
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # Zoek de specifieke sectie met de tabel
+        # Zoek de standings sectie
         section = soup.find("section", id="standings")
         if not section:
-            print(f"Waarschuwing: Geen 'standings' sectie gevonden voor {category_name}")
-            return {"title": category_name, "riders": []}
+            return {"title": "Standings", "riders": []}
+
+        # --- DIT IS DE WIJZIGING: PLUK DE TITEL LIVE ---
+        # We zoeken naar de h2 binnen de section, dat is meestal de titel
+        title_element = section.find("h2")
+        live_title = title_element.get_text(strip=True) if title_element else "Standings"
 
         riders = []
-        # We zoeken alle rijen (tr) in de tabel
         rows = section.find_all("tr")
         
         for row in rows:
             cols = row.find_all("td")
-            # De rij moet minimaal 6 kolommen hebben en de eerste kolom moet een positie-nummer zijn
             if len(cols) >= 6:
                 pos_val = cols[0].get_text(strip=True)
                 if pos_val.isdigit():
@@ -38,36 +40,32 @@ def scrape_category(session, url, category_name):
                         "points": cols[-1].get_text(strip=True)
                     })
         
-        print(f"Succes: {len(riders)} rijders gevonden voor {category_name}")
-        return {"title": category_name, "riders": riders}
+        return {"title": live_title, "riders": riders}
 
     except Exception as e:
-        print(f"Fout bij {category_name}: {e}")
-        return {"title": category_name, "riders": [], "error": str(e)}
+        print(f"Fout bij {url}: {e}")
+        return {"title": "Error", "riders": []}
 
 def main():
-    # Gebruik een session voor snellere verbindingen
     with requests.Session() as session:
-        print("Scraping MXGP standings...")
-        mxgp = scrape_category(session, "https://mxgpresults.com/mxgp/standings", "MXGP")
+        print("Scraping MXGP...")
+        mxgp_data = scrape_category(session, "https://mxgpresults.com/mxgp/standings")
         
-        print("Scraping MX2 standings...")
-        mx2 = scrape_category(session, "https://mxgpresults.com/mx2/standings", "MX2")
+        print("Scraping MX2...")
+        mx2_data = scrape_category(session, "https://mxgpresults.com/mx2/standings")
 
-    # Gecombineerde data
-    final_data = {
-        "mxgp": mxgp,
-        "mx2": mx2,
-        "last_updated": "2026-03-28" # Of gebruik datetime.now()
+    # We bouwen het JSON object op
+    final_json = {
+        "mxgp": mxgp_data,
+        "mx2": mx2_data
     }
 
-    # Schrijf naar bestand
     try:
         with open('standings.json', 'w', encoding='utf-8') as f:
-            json.dump(final_data, f, indent=4, ensure_ascii=False)
-        print("Bestand 'standings.json' succesvol bijgewerkt.")
+            json.dump(final_json, f, indent=4, ensure_ascii=False)
+        print("Success! Titels en standen zijn bijgewerkt.")
     except Exception as e:
-        print(f"Fout bij opslaan bestand: {e}")
+        print(f"Bestand fout: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":
