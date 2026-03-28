@@ -3,54 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MXGP Standings</title>
+    <title>MX Standings</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 font-sans antialiased">
-    <header class="bg-black text-white p-6 sticky top-0 z-50 shadow-xl border-b-2 border-orange-600">
-        <h1 class="text-2xl font-black italic tracking-tighter text-center">MXGP LIVE</h1>
+    <header class="bg-black text-white p-4 sticky top-0 z-50 shadow-xl border-b-2 border-orange-600">
+        <h1 class="text-xl font-black italic tracking-tighter text-center mb-4">MX WORLD CHAMPIONSHIP</h1>
+        <div class="flex justify-center space-x-2">
+            <button onclick="switchClass('mxgp')" id="btn-mxgp" class="px-6 py-2 rounded-full font-black text-sm transition-all bg-orange-600 text-white">MXGP</button>
+            <button onclick="switchClass('mx2')" id="btn-mx2" class="px-6 py-2 rounded-full font-black text-sm transition-all bg-gray-800 text-gray-400">MX2</button>
+        </div>
     </header>
 
     <div id="app" class="max-w-md mx-auto p-4 space-y-3">
-        <div class="animate-pulse flex space-x-4 p-4 bg-white rounded-xl">
-            <div class="rounded-full bg-slate-200 h-10 w-10"></div>
-            <div class="flex-1 space-y-6 py-1">
-                <div class="h-2 bg-slate-200 rounded"></div>
-            </div>
-        </div>
+        <p class="text-center py-10 text-gray-400 italic font-bold">Data aan het laden...</p>
     </div>
 
     <script>
-        async function load() {
+        let allData = {};
+
+        async function init() {
             try {
                 const res = await fetch('standings.json?t=' + Date.now());
-                const data = await res.json();
-                const app = document.getElementById('app');
-                app.innerHTML = '';
-
-                data.forEach(r => {
-                    app.innerHTML += `
-                        <div class="flex items-center bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
-                            <span class="text-xl font-bold w-10 text-gray-300">${r.pos}</span>
-                            
-                            <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-black mr-4 shadow-inner text-lg">
-                                ${r.number}
-                            </div>
-                            
-                            <div class="flex-grow">
-                                <h2 class="font-extrabold text-gray-900 leading-tight">${r.name}</h2>
-                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">${r.bike}</p>
-                            </div>
-                            
-                            <div class="text-right">
-                                <span class="text-2xl font-black text-black">${r.points}</span>
-                                <p class="text-[10px] text-orange-600 font-bold">PTS</p>
-                            </div>
-                        </div>`;
-                });
+                allData = await res.json();
+                switchClass('mxgp'); // Start met MXGP
             } catch (e) { document.getElementById('app').innerHTML = "Fout bij laden."; }
         }
-        load();
+
+        function switchClass(className) {
+            const app = document.getElementById('app');
+            const data = allData[className];
+            app.innerHTML = '';
+
+            // Update knopstijlen
+            document.getElementById('btn-mxgp').className = className === 'mxgp' ? 'px-6 py-2 rounded-full font-black text-sm bg-orange-600 text-white' : 'px-6 py-2 rounded-full font-black text-sm bg-gray-800 text-gray-400';
+            document.getElementById('btn-mx2').className = className === 'mx2' ? 'px-6 py-2 rounded-full font-black text-sm bg-orange-600 text-white' : 'px-6 py-2 rounded-full font-black text-sm bg-gray-800 text-gray-400';
+
+            data.forEach(r => {
+                app.innerHTML += `
+                    <div class="flex items-center bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+                        <span class="text-xl font-bold w-10 text-gray-300">${r.pos}</span>
+                        <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-black mr-4 shadow-inner text-lg">
+                            ${r.number}
+                        </div>
+                        <div class="flex-grow">
+                            <h2 class="font-extrabold text-gray-900 leading-tight">${r.name}</h2>
+                            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">${r.bike}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-black text-black">${r.points}</span>
+                            <p class="text-[10px] text-orange-600 font-bold">PTS</p>
+                        </div>
+                    </div>`;
+            });
+            window.scrollTo(0, 0); // Scroll terug naar boven bij wisselen
+        }
+        init();
     </script>
 </body>
 </html>
