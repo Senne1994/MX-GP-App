@@ -1,14 +1,72 @@
-<select id="yearSelect" onchange="changeYear(this.value)">
-    </select>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MXGP Stats & Calendar</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        select { padding: 10px; font-size: 16px; margin-bottom: 20px; width: 100%; border-radius: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #333; color: white; }
+        tr:hover { background-color: #f9f9f9; }
+        h2 { border-left: 5px solid #e63946; padding-left: 10px; margin-top: 40px; }
+        .pos { font-weight: bold; width: 30px; }
+    </style>
+</head>
+<body>
 
-<div id="content">
-    <h1 id="yearTitle">Laden...</h1>
-    <div id="calendarSection"></div>
-    <div id="mxgpSection"></div>
+<div class="container">
+    <h1>MXGP Seizoensoverzicht</h1>
+    
+    <label for="yearSelect">Kies een seizoen:</label>
+    <select id="yearSelect" onchange="changeYear(this.value)">
+        </select>
+
+    <h2 id="calendarTitle">Kalender</h2>
+    <table id="calendarTable">
+        <thead>
+            <tr>
+                <th>Rnd</th>
+                <th>Datum</th>
+                <th>Grand Prix</th>
+                <th>Locatie</th>
+            </tr>
+        </thead>
+        <tbody id="calendarBody"></tbody>
+    </table>
+
+    <h2 id="mxgpTitle">MXGP Standings</h2>
+    <table id="mxgpTable">
+        <thead>
+            <tr>
+                <th>Pos</th>
+                <th>Rijder</th>
+                <th>Motor</th>
+                <th>Punten</th>
+            </tr>
+        </thead>
+        <tbody id="mxgpBody"></tbody>
+    </table>
+
+    <h2 id="mx2Title">MX2 Standings</h2>
+    <table id="mx2Table">
+        <thead>
+            <tr>
+                <th>Pos</th>
+                <th>Rijder</th>
+                <th>Motor</th>
+                <th>Punten</th>
+            </tr>
+        </thead>
+        <tbody id="mx2Body"></tbody>
+    </table>
 </div>
 
 <script>
-// 1. Haal eerst de beschikbare jaren op
+// 1. Haal de beschikbare jaren op uit years_index.json
 fetch('years_index.json')
     .then(res => res.json())
     .then(index => {
@@ -19,23 +77,46 @@ fetch('years_index.json')
             opt.innerHTML = year;
             select.appendChild(opt);
         });
-        // Laad standaard het eerste (nieuwste) jaar
+        // Laad direct het eerste jaar uit de lijst (meestal het nieuwste)
         changeYear(index.available_years[0]);
-    });
+    })
+    .catch(err => console.error("Index niet gevonden:", err));
 
-// 2. Functie om de data van het gekozen jaar te laden
+// 2. Functie om data per jaar te laden
 function changeYear(year) {
     fetch(`data_${year}.json`)
         .then(res => res.json())
         .then(data => {
-            document.getElementById('yearTitle').innerText = `Seizoen ${year}`;
-            renderData(data);
-        });
+            renderTable('calendarBody', data.calendar, ['round', 'date', 'gp', 'loc']);
+            renderTable('mxgpBody', data.mxgp.riders, ['pos', 'name', 'bike', 'points']);
+            renderTable('mx2Body', data.mx2.riders, ['pos', 'name', 'bike', 'points']);
+            
+            // Update titels
+            document.getElementById('mxgpTitle').innerText = data.mxgp.title;
+            document.getElementById('mx2Title').innerText = data.mx2.title;
+        })
+        .catch(err => console.error("Data bestand niet gevonden:", err));
 }
 
-function renderData(data) {
-    // Hier kun je je tabellen vullen zoals je eerder deed
-    // Bijvoorbeeld: console.log(data.calendar);
-    console.log("Data voor dit jaar:", data);
+// 3. Functie om rijen in de tabel te tekenen
+function renderTable(elementId, items, keys) {
+    const body = document.getElementById(elementId);
+    body.innerHTML = ""; // Maak tabel eerst leeg
+    
+    if (!items || items.length === 0) {
+        body.innerHTML = "<tr><td colspan='4'>Geen data beschikbaar voor dit jaar.</td></tr>";
+        return;
+    }
+
+    items.forEach(item => {
+        let row = body.insertRow();
+        keys.forEach(key => {
+            let cell = row.insertCell();
+            cell.innerHTML = item[key] || "-";
+        });
+    });
 }
 </script>
+
+</body>
+</html>
