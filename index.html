@@ -1,105 +1,41 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MX Pro App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .nav-active { color: #ea580c; border-top: 3px solid #ea580c; background: rgba(255,255,255,0.05); }
-        body { -webkit-tap-highlight-color: transparent; padding-bottom: 70px; }
-    </style>
-</head>
-<body class="bg-gray-100 font-sans">
+<select id="yearSelect" onchange="changeYear(this.value)">
+    </select>
 
-    <div id="page-standings">
-        <header class="bg-black text-white p-4 sticky top-0 z-50 border-b-2 border-orange-600">
-            <h1 id="main-title" class="text-lg font-black italic mb-4 uppercase text-orange-600 tracking-tighter text-center">MX STANDINGS</h1>
-            <div class="flex justify-center space-x-2">
-                <button onclick="switchClass('mxgp')" id="btn-mxgp" class="px-6 py-2 rounded-full font-black text-xs bg-orange-600 text-white border-0 cursor-pointer">MXGP</button>
-                <button onclick="switchClass('mx2')" id="btn-mx2" class="px-6 py-2 rounded-full font-black text-xs bg-gray-800 text-gray-400 border-0 cursor-pointer">MX2</button>
-            </div>
-        </header>
-        <div id="standings-list" class="max-w-md mx-auto p-4 space-y-3"></div>
-    </div>
+<div id="content">
+    <h1 id="yearTitle">Laden...</h1>
+    <div id="calendarSection"></div>
+    <div id="mxgpSection"></div>
+</div>
 
-    <div id="page-calendar" class="hidden">
-        <header class="bg-black text-white p-6 sticky top-0 z-50 border-b-2 border-orange-600 text-center">
-            <h1 class="text-xl font-black italic uppercase text-orange-600">MXGP Kalender 2026</h1>
-        </header>
-        <div id="calendar-list" class="max-w-md mx-auto p-4 space-y-3"></div>
-    </div>
+<script>
+// 1. Haal eerst de beschikbare jaren op
+fetch('years_index.json')
+    .then(res => res.json())
+    .then(index => {
+        const select = document.getElementById('yearSelect');
+        index.available_years.forEach(year => {
+            let opt = document.createElement('option');
+            opt.value = year;
+            opt.innerHTML = year;
+            select.appendChild(opt);
+        });
+        // Laad standaard het eerste (nieuwste) jaar
+        changeYear(index.available_years[0]);
+    });
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-black text-white flex justify-around items-center z-50 h-16 border-t border-gray-900 shadow-2xl">
-        <button onclick="showPage('standings')" id="nav-standings" class="flex-1 flex flex-col items-center justify-center h-full nav-active border-0 bg-transparent">
-            <span class="text-[10px] font-black uppercase tracking-widest">Standings</span>
-        </button>
-        <button onclick="showPage('calendar')" id="nav-calendar" class="flex-1 flex flex-col items-center justify-center h-full text-gray-500 border-0 bg-transparent">
-            <span class="text-[10px] font-black uppercase tracking-widest">Kalender</span>
-        </button>
-    </nav>
+// 2. Functie om de data van het gekozen jaar te laden
+function changeYear(year) {
+    fetch(`data_${year}.json`)
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('yearTitle').innerText = `Seizoen ${year}`;
+            renderData(data);
+        });
+}
 
-    <script>
-        let allStandings = {};
-        let allCalendar = [];
-
-        async function init() {
-            try {
-                const [sRes, cRes] = await Promise.all([
-                    fetch('standings.json?t=' + Date.now()),
-                    fetch('calendar.json?t=' + Date.now())
-                ]);
-                allStandings = await sRes.json();
-                allCalendar = await cRes.json();
-                switchClass('mxgp');
-                renderCalendar();
-            } catch (e) { console.error(e); }
-        }
-
-        function showPage(page) {
-            document.getElementById('page-standings').classList.toggle('hidden', page !== 'standings');
-            document.getElementById('page-calendar').classList.toggle('hidden', page !== 'calendar');
-            document.getElementById('nav-standings').classList.toggle('nav-active', page === 'standings');
-            document.getElementById('nav-standings').classList.toggle('text-gray-500', page !== 'standings');
-            document.getElementById('nav-calendar').classList.toggle('nav-active', page === 'calendar');
-            document.getElementById('nav-calendar').classList.toggle('text-gray-500', page !== 'calendar');
-            window.scrollTo(0,0);
-        }
-
-        function switchClass(className) {
-            const list = document.getElementById('standings-list');
-            const data = allStandings[className];
-            document.getElementById('main-title').innerText = data.title;
-            list.innerHTML = '';
-            document.getElementById('btn-mxgp').className = className === 'mxgp' ? 'px-6 py-2 rounded-full font-black text-xs bg-orange-600 text-white' : 'px-6 py-2 rounded-full font-black text-xs bg-gray-800 text-gray-400';
-            document.getElementById('btn-mx2').className = className === 'mx2' ? 'px-6 py-2 rounded-full font-black text-xs bg-orange-600 text-white' : 'px-6 py-2 rounded-full font-black text-xs bg-gray-800 text-gray-400';
-
-            data.riders.forEach(r => {
-                list.innerHTML += `<div class="flex items-center bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
-                    <span class="text-xl font-bold w-10 text-gray-200">${r.pos}</span>
-                    <div class="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center text-orange-600 font-black mr-4">${r.number}</div>
-                    <div class="flex-grow"><h2 class="font-extrabold text-gray-900">${r.name}</h2><p class="text-[10px] text-gray-400 font-bold uppercase">${r.bike}</p></div>
-                    <div class="text-right"><span class="text-2xl font-black">${r.points}</span><p class="text-[10px] text-orange-600 font-black">PTS</p></div>
-                </div>`;
-            });
-        }
-
-        function renderCalendar() {
-            const list = document.getElementById('calendar-list');
-            list.innerHTML = '';
-            if(!allCalendar.length) { list.innerHTML = "<p class='text-center p-10 text-gray-400'>Geen races gevonden.</p>"; return; }
-            allCalendar.forEach(event => {
-                list.innerHTML += `<div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-orange-600">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-[10px] font-black bg-orange-100 text-orange-600 px-2 py-1 rounded">ROUND ${event.round}</span>
-                        <span class="text-xs font-bold text-gray-400 uppercase">${event.date}</span>
-                    </div>
-                    <h2 class="text-lg font-black text-gray-900 uppercase italic">${event.gp}</h2>
-                    <p class="text-sm text-gray-500 font-bold italic">📍 ${event.loc}</p>
-                </div>`;
-            });
-        }
-        init();
-    </script>
-</body>
-</html>
+function renderData(data) {
+    // Hier kun je je tabellen vullen zoals je eerder deed
+    // Bijvoorbeeld: console.log(data.calendar);
+    console.log("Data voor dit jaar:", data);
+}
+</script>
