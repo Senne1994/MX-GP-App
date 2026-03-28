@@ -1,10 +1,9 @@
-name: Update Standings and Calendar
+name: Update Multi-Year Data
 
 on:
   schedule:
-    # Draait elke 6 uur automatisch
     - cron: '0 */6 * * *'
-  workflow_dispatch: # Hiermee kun je de actie handmatig starten via het "Actions" tabblad
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -12,30 +11,17 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests beautifulsoup4
-
-      - name: Run Scraper
-        run: python scraper.py
-
-      - name: Commit and Push changes
+      - run: pip install requests beautifulsoup4
+      - run: python scraper.py
+      - name: Push changes
         run: |
           git config --global user.name "Scraper Bot"
           git config --global user.email "bot@github.com"
-          # Voeg beide JSON bestanden toe aan de commit
-          git add standings.json calendar.json
-          # Commit alleen als er echt wijzigingen zijn (|| exit 0 voorkomt foutmeldingen)
-          git commit -m "Automated update: Standings & Calendar" || exit 0
+          git add data_*.json years_index.json
+          git commit -m "Update multi-year data" || exit 0
           git push
