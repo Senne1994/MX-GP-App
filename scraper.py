@@ -32,17 +32,14 @@ def scrape_calendar():
     try:
         response = requests.get(url, headers=headers)
         soup = BeautifulSoup(response.text, 'html.parser')
-        # We zoeken de rijen in de tabel met class 'cal' (zoals in je screenshot)
         rows = soup.select("table.cal tbody tr")
         for row in rows:
             cols = row.find_all("td")
             if len(cols) >= 3:
-                # GP Naam en Locatie (vaak in een span)
                 gp_cell = cols[1]
                 gp_name = gp_cell.find("a").get_text(strip=True) if gp_cell.find("a") else gp_cell.get_text(strip=True)
                 location = gp_cell.find("span").get_text(strip=True) if gp_cell.find("span") else ""
                 
-                # Datum info
                 date_cell = cols[2]
                 time_tag = date_cell.find("time")
                 machine_date = time_tag['datetime'] if time_tag and time_tag.has_attr('datetime') else ""
@@ -59,7 +56,6 @@ def scrape_calendar():
     except: return []
 
 def main():
-    # 1. Haal Standings op
     standings_data = {
         "mxgp": scrape_standings("https://mxgpresults.com/mxgp/standings"),
         "mx2": scrape_standings("https://mxgpresults.com/mx2/standings")
@@ -67,12 +63,11 @@ def main():
     with open('standings.json', 'w') as f:
         json.dump(standings_data, f, indent=4)
 
-    # 2. Haal Kalender op
     calendar_data = scrape_calendar()
     with open('calendar.json', 'w') as f:
         json.dump(calendar_data, f, indent=4)
     
-    print(f"Update voltooid! Kalender: {len(calendar_data)} races gevonden.")
+    print("Update voltooid!")
 
 if __name__ == "__main__":
     main()
